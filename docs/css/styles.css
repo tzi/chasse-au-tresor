@@ -9,6 +9,10 @@
     src: url("./SpartanBold.woff") format("woff")
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     color: #2A293E;
     background: #F8F4E5;
@@ -47,7 +51,7 @@ html {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px;
-    background: #f8f4e5;
+    background: transparent;
     padding: 0 5px;
 
     transition: 0.2s border-color ease-in-out;
