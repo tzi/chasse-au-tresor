@@ -8,7 +8,9 @@
         }
 
         function getDistance() {
-            return parseInt(form[`point${i}.distance`].value) / 1000;
+            return parseInt(
+                form[`point${i}.distance`].value.replace(/\s/g, '')
+            ) / 1000;
         }
 
         return {
@@ -23,6 +25,7 @@
 
         const point1 = getPoint(1);
         const point2 = getPoint(2);
+        console.log({ point1, point2 });
 
         const circle1 = turf.circle(point1.coordinates, point1.distance, {
             steps: 10000,
@@ -32,8 +35,10 @@
             steps: 10000,
             units: 'kilometers',
         });
+        console.log({ circle1, circle2 });
 
         const intersectionList = turf.lineIntersect(circle1, circle2);
+        console.log({ intersectionList });
         const output = intersectionList.features
             .map(point => point.geometry.coordinates.map(coordinate => coordinate.toFixed(5)).toString())
             .join(' et ');
