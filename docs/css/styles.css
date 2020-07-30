@@ -1,0 +1,94 @@
+@font-face {
+    font-family: "Spartan";
+    src: url("./Spartan.woff") format("woff")
+}
+
+@font-face {
+    font-family: "Spartan";
+    font-weight: bold;
+    src: url("./SpartanBold.woff") format("woff")
+}
+
+html {
+    color: #2A293E;
+    background: #F8F4E5;
+    font-family: Spartan, sans-serif;
+}
+
+.c-topbar {
+    padding: 10px 0;
+    background: #F45702;
+
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.c-topbar__title {
+    margin: 0;
+    font: inherit;
+    text-align: center;
+}
+
+.c-input {
+    display: block;
+    margin-bottom: 24px;
+
+    font-size: 12pt;
+    line-height: 24pt;
+}
+
+.c-input__label {
+    display: block;
+}
+
+.c-input__input {
+    display: block;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    background: #f8f4e5;
+    padding: 0 5px;
+
+    transition: 0.2s border-color ease-in-out;
+
+    font: inherit;
+    outline: none;
+}
+
+.c-input__input:focus,
+.c-input__input:focus {
+    border: 1px solid #652401;
+}
+
+.c-action {
+    text-align: center;
+}
+
+.c-button {
+    padding: 7px 20px 5px;
+    border: none;
+    border-radius: 2px;
+    background: #f45702;
+
+    color: white;
+    font: inherit;
+
+    transition: 0.2s background-color ease-in-out;
+    border-bottom: 2px solid #f45702;
+
+    cursor: pointer;
+    outline: none;
+}
+
+.c-button:hover,
+.c-button:focus {
+    background: #652401;
+}
+
+.o-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}

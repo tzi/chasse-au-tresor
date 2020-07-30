@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Les outils du chasseur de trésor</title>
+    <meta name="description" content="Les outils du chasseur de trésor">
+    <meta name="author" content="tzi">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+    <div class="c-topbar">
+        <div class="o-container">
+            <h1 class="c-topbar__title">Chasse au trésor</h1>
+        </div>
+    </div>
+    <div class="o-container">
+        <h2>Triangulation</h2>
+
+        <form name="triangulation">
+            <h3>Point 1</h3>
+            <label class="c-input">
+                <div class="c-input__label">
+                    Coordonnées GPS <em>(lat, long)</em>
+                </div>
+                <input type="text" class="c-input__input" name="point1.coordinates" />
+            </label>
+            <label class="c-input">
+                <div class="c-input__label">
+                    Distance <em>(m)</em>
+                </div>
+                <input type="text" class="c-input__input" name="point1.distance" />
+            </label>
+
+            <h3>Point 2</h3>
+            <label class="c-input">
+                <div class="c-input__label">
+                    Coordonnées GPS <em>(lat, long)</em>
+                </div>
+                <input type="text" class="c-input__input" name="point2.coordinates" />
+            </label>
+            <label class="c-input">
+                <div class="c-input__label">
+                    Distance <em>(m)</em>
+                </div>
+                <input type="text" class="c-input__input" name="point2.distance" />
+            </label>
+
+            <div class="c-action">
+                <button class="c-button">Calculer</button>
+            </div>
+        </form>
+    </div>
+<body>
+
+<script src='https://unpkg.com/@turf/turf/turf.min.js'></script>
+<script src="app.js"></script>
+</body>
+</html>
