@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
@@ -18,46 +19,56 @@
             <h1 class="c-topbar__title">Chasse au trésor</h1>
         </div>
     </div>
-    <div class="o-container">
-        <h2>Triangulation</h2>
+    <div class="o-section">
+        <div class="o-container">
+            <h2>Triangulation</h2>
 
-        <form name="triangulation">
-            <h3>Point 1</h3>
-            <label class="c-input">
-                <div class="c-input__label">
-                    Coordonnées GPS <em>(lat, long)</em>
-                </div>
-                <input type="text" class="c-input__input" name="point1.coordinates" placeholder="44.33918, 1.20851" />
-            </label>
-            <label class="c-input">
-                <div class="c-input__label">
-                    Distance <em>(mètres)</em>
-                </div>
-                <input type="text" class="c-input__input" name="point1.distance" placeholder="314 159" />
-            </label>
+            <form name="triangulation">
+                <h3>Point 1</h3>
+                <label class="c-input">
+                    <div class="c-input__label">
+                        Coordonnées GPS <em>(lat, long)</em>
+                    </div>
+                    <input type="text" class="c-input__input" name="point1.coordinates" placeholder="44.33918, 1.20851" />
+                </label>
+                <label class="c-input">
+                    <div class="c-input__label">
+                        Distance <em>(mètres)</em>
+                    </div>
+                    <input type="text" class="c-input__input" name="point1.distance" placeholder="314 159" />
+                </label>
 
-            <h3>Point 2</h3>
-            <label class="c-input">
-                <div class="c-input__label">
-                    Coordonnées GPS <em>(lat, long)</em>
-                </div>
-                <input type="text" class="c-input__input" name="point2.coordinates" placeholder="44.33918, 1.20851" />
-            </label>
-            <label class="c-input">
-                <div class="c-input__label">
-                    Distance <em>(mètres)</em>
-                </div>
-                <input type="text" class="c-input__input" name="point2.distance" placeholder="314 159" />
-            </label>
+                <h3>Point 2</h3>
+                <label class="c-input">
+                    <div class="c-input__label">
+                        Coordonnées GPS <em>(lat, long)</em>
+                    </div>
+                    <input type="text" class="c-input__input" name="point2.coordinates" placeholder="44.33918, 1.20851" />
+                </label>
+                <label class="c-input">
+                    <div class="c-input__label">
+                        Distance <em>(mètres)</em>
+                    </div>
+                    <input type="text" class="c-input__input" name="point2.distance" placeholder="314 159" />
+                </label>
 
-            <div class="c-action">
-                <button class="c-button">Calculer</button>
-            </div>
-        </form>
+                <div class="c-action">
+                    <button class="c-button">Calculer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="o-section">
+        <div class="o-container">
+            <h2>Résultat</h2>
+            <div id="result"></div>
+            <div id="map"></div>
+        </div>
     </div>
 <body>
 
 <script src='https://unpkg.com/@turf/turf/turf.min.js'></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <script src="app.js"></script>
 </body>
 </html>

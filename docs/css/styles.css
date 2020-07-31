@@ -17,6 +17,7 @@ html {
     color: #2A293E;
     background: #F8F4E5;
     font-family: Spartan, sans-serif;
+    line-height: 1.5;
 }
 
 .c-topbar {
@@ -99,4 +100,13 @@ html {
     max-width: 600px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.o-section {
+    padding: 20px 0;
+}
+
+#map {
+    width: 100%;
+    height: 300px;
 }
