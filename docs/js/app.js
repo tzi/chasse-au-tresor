@@ -1,79 +1,3 @@
-(function() {
-    function getCenter(i) {
-        function getCoordinates() {
-            const input = form[`point${i}.coordinates`].value;
-
-            return input.split(',')
-                .map(coordinate => parseFloat(coordinate.trim()))
-                .reverse();
-        }
-
-        function getDistance() {
-            return parseInt(
-                form[`point${i}.distance`].value.replace(/\s/g, '')
-            ) / 1000;
-        }
-
-        return {
-            coordinates: getCoordinates(),
-            distance: getDistance(),
-            properties: {
-                name: `center${i}`
-            }
-        }
-    }
-
-    const form = document.forms.triangulation;
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const map = initMap(function () {
-
-            // Centers
-            const center1 = getCenter(1);
-            const center2 = getCenter(2);
-            map.addPoints('centers', map.createFeatureCollections([
-                map.createFeaturePoint(center1.coordinates, {name: 'Point 1'}),
-                map.createFeaturePoint(center2.coordinates, {name: 'Point 2'}),
-            ]), '#7FDBFF');
-
-            // Circles
-            const circle1 = turf.circle(center1.coordinates, center1.distance, {
-                steps: 1000,
-                units: 'kilometers',
-            });
-            const circle2 = turf.circle(center2.coordinates, center2.distance, {
-                steps: 1000,
-                units: 'kilometers',
-            });
-            map.addPolygon('circles', map.createFeatureCollections([circle1, circle2]), '#7FDBFF');
-
-            // Intersections
-            const intersections = turf.lineIntersect(circle1, circle2);
-            map.addPoints('intersections', intersections,'#FF4136');
-            if (!intersections) {
-                ouput('Aucune intersection trouvée');
-                return false;
-            }
-
-            ouput(`
-                Nombre d'intersections : ${intersections.features.length}
-                <ul>
-                    ${intersections.features.map(point => `
-                        <li>${map.displayPoint(point)}</li>
-                    `).join('')}
-                </ul>    
-            `);
-            const output = intersections.features
-                .map(point => point.geometry.coordinates.map(coordinate => coordinate.toFixed(5)).toString())
-                .join(' et ');
-        });
-    });
-})();
-
-function ouput(text) {
-    document.getElementById('result').innerHTML = text;
-}
-
 const initMap = function(callback) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiaWFtdHppIiwiYSI6ImNrZGFwb3NzaDAzbHYyeW5iemUwbWZyNWUifQ.lQeBlGs6ZgcPyc78HZ3MBg';
     const map = new mapboxgl.Map({
@@ -201,3 +125,93 @@ const initMap = function(callback) {
         displayCoordinates,
     }
 };
+
+(function() {
+    function getCenter(i) {
+        function getCoordinates() {
+            const input = form[`point${i}.coordinates`].value;
+            if (!input.trim()) {
+                return false;
+            }
+
+            return input.split(',')
+                .map(coordinate => parseFloat(coordinate.trim()))
+                .reverse();
+        }
+
+        function getDistance() {
+            return parseInt(
+                form[`point${i}.distance`].value.replace(/\s/g, '')
+            ) / 1000;
+        }
+
+        return {
+            coordinates: getCoordinates(),
+            distance: getDistance()
+        }
+    }
+
+    function updateMap() {
+        if (
+            !form[`point1.coordinates`].value.trim() ||
+            !form[`point1.distance`].value.trim() ||
+            !form[`point2.coordinates`].value.trim() ||
+            !form[`point2.distance`].value.trim()
+        ) {
+            return false;
+        }
+
+        const map = initMap(function () {
+
+            // Centers
+            const center1 = getCenter(1);
+            const center2 = getCenter(2);
+            map.addPoints('centers', map.createFeatureCollections([
+                map.createFeaturePoint(center1.coordinates, {name: 'Point 1'}),
+                map.createFeaturePoint(center2.coordinates, {name: 'Point 2'}),
+            ]), '#7FDBFF');
+
+            // Circles
+            const circle1 = turf.circle(center1.coordinates, center1.distance, {
+                steps: 1000,
+                units: 'kilometers',
+            });
+            const circle2 = turf.circle(center2.coordinates, center2.distance, {
+                steps: 1000,
+                units: 'kilometers',
+            });
+            map.addPolygon('circles', map.createFeatureCollections([circle1, circle2]), '#7FDBFF');
+
+            // Intersections
+            const intersections = turf.lineIntersect(circle1, circle2);
+            map.addPoints('intersections', intersections,'#FF4136');
+            if (!intersections) {
+                ouput('Aucune intersection trouvée');
+                return false;
+            }
+
+            ouput(`
+                ${intersections.features.length} intersections trouvées : 
+                <ul>
+                    ${intersections.features.map(point => `
+                        <li>${map.displayPoint(point)}</li>
+                    `).join('')}
+                </ul>    
+            `);
+        });
+    }
+
+    url2form.init('triangulation');
+    const form = document.forms.triangulation;
+    form.addEventListener('submit', function (event) {
+        if (event.submitter && event.submitter.name === 'update') {
+            event.preventDefault();
+            updateMap();
+        }
+    });
+    updateMap();
+})();
+
+function ouput(text) {
+    document.getElementById('result').innerHTML = text;
+}
