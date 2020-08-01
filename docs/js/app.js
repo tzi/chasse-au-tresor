@@ -190,11 +190,11 @@ const initMap = function(callback) {
                 return false;
             }
 
-            ouput(`
-                ${intersections.features.length} intersections trouvées : 
+            output.displayTitle(`${intersections.features.length} intersections trouvées`);
+            output.displayText(`
                 <ul>
                     ${intersections.features.map(point => `
-                        <li>${map.displayPoint(point)}</li>
+                        <li><p>${map.displayPoint(point)}</p></li>
                     `).join('')}
                 </ul>    
             `);
@@ -215,6 +215,18 @@ const initMap = function(callback) {
     updateMap();
 })();
 
-function ouput(text) {
-    document.getElementById('result').innerHTML = text;
-}
+const output = (function() {
+
+    function displayTitle(title) {
+        document.getElementById('result-title').innerHTML = title;
+    }
+
+    function displayText(text) {
+        document.getElementById('result-details').innerHTML = text;
+    }
+
+    return {
+        displayTitle,
+        displayText,
+    };
+})();
