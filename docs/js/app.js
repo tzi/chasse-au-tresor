@@ -201,10 +201,13 @@ const initMap = function(callback) {
         });
     }
 
+    let mode = 'update';
     url2form.init('triangulation');
     const form = document.forms.triangulation;
+    form.update.addEventListener('click', () => mode = 'update');
+    form.save.addEventListener('click', () => mode = 'save');
     form.addEventListener('submit', function (event) {
-        if (event.submitter && event.submitter.name === 'update') {
+        if (mode === 'update') {
             event.preventDefault();
             updateMap();
         }
