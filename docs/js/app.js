@@ -101,15 +101,10 @@ const initMap = function(callback) {
                 'line-width': 3,
             }
         });
-        fitBounds(data.features.map(datum => datum.geometry.coordinates[0]).flat());
+        fitBounds(turf.bbox(data));
     }
 
-    function fitBounds(coordinates) {
-        const bounds = coordinates.reduce(
-            (bounds, coord) => bounds.extend(coord),
-            new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
-        );
-
+    function fitBounds(bounds) {
         map.fitBounds(bounds, {
             padding: 20
         });
