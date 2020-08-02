@@ -56,6 +56,7 @@
                 return false;
             }
 
+            // Output
             result.setTitle(`${intersections.features.length} intersections trouvées`);
             result.setDetails(`
                 <ul>
