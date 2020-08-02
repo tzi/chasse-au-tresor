@@ -20,6 +20,10 @@ html {
     line-height: 1.5;
 }
 
+[data-output]:empty {
+    display: none;
+}
+
 .c-topbar {
     padding: 10px 0;
     background: #F45702;

@@ -21,34 +21,42 @@
     </div>
     <div class="c-menu">
         <div class="o-container">
-            <a href="menu.html" class="c-menu__title">Cueillette de texte</a>
+            <a href="menu.html" class="c-menu__title">Triangulation</a>
         </div>
     </div>
     <div class="o-section">
         <div class="o-container">
-            <form name="cueillette">
+            <form name="triangulation">
+                <h3>Point 1</h3>
                 <label class="c-input">
                     <div class="c-input__label">
-                        Texte de référence
+                        Coordonnées GPS <em>(lat, long)</em>
                     </div>
-                    <textarea class="c-input__input" name="reference" required></textarea>
+                    <input type="text" class="c-input__input" name="point1.coordinates" placeholder="44.33918, 1.20851" required />
                 </label>
                 <label class="c-input">
                     <div class="c-input__label">
-                        Position des lettres à sélectionner
+                        Distance <em>(mètres)</em>
                     </div>
-                    <input type="text" class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required />
+                    <input type="text" class="c-input__input" name="point1.distance" placeholder="314 159" required />
                 </label>
-                <h3>Options</h3>
+
+                <h3>Point 2</h3>
                 <label class="c-input">
                     <div class="c-input__label">
-                        <input type="checkbox" name="withSpaces" />
-                        Compter les espaces ?
+                        Coordonnées GPS <em>(lat, long)</em>
                     </div>
+                    <input type="text" class="c-input__input" name="point2.coordinates" placeholder="44.33918, 1.20851" required />
+                </label>
+                <label class="c-input">
+                    <div class="c-input__label">
+                        Distance <em>(mètres)</em>
+                    </div>
+                    <input type="text" class="c-input__input" name="point2.distance" placeholder="314 159" required />
                 </label>
 
                 <div class="c-action">
-                    <button name="update" class="c-button">Cueillir</button>
+                    <button name="update" class="c-button">Calculer</button>
                 </div>
             </form>
         </div>
@@ -58,7 +66,9 @@
 <script src='js/url2form.min.js'></script>
 <script src='js/turf.min.js'></script>
 <script src="js/output.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<script src="js/map.js"></script>
 <script src="js/form.js"></script>
-<script src="cueillette.js"></script>
+<script src="triangulation.js"></script>
 </body>
 </html>
