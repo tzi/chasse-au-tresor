@@ -12,9 +12,13 @@ function initForm(formName, compute) {
         compute(formData);
 
         share = initOutput();
-        const url = window.location.hostname + window.location.pathname + '?' + serialized;
+        const url = window.location.protocol + '//' + window.location.host + window.location.pathname + '?' + serialized;
         share.setTitle('Partager / Sauvegarder');
-        share.setDetails(`<a href="${url}">${url}</a>`);
+        share.setDetails(`
+            <a href="${url}" style="display: block; font-size: 12px">
+                ${url}
+            </a>
+        `);
     }
 
     if (!form) {
