@@ -1,12 +1,16 @@
 const initMap = function(callback) {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaWFtdHppIiwiYSI6ImNrZGFwb3NzaDAzbHYyeW5iemUwbWZyNWUifQ.lQeBlGs6ZgcPyc78HZ3MBg';
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [4.8467100, 45.7484600],
-        zoom: 4
+    let map;
+    output.addMap();
+    window.requestAnimationFrame(() => {
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaWFtdHppIiwiYSI6ImNrZGFwb3NzaDAzbHYyeW5iemUwbWZyNWUifQ.lQeBlGs6ZgcPyc78HZ3MBg';
+        map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [4.8467100, 45.7484600],
+            zoom: 4
+        });
+        map.on('load', callback);
     });
-    map.on('load', callback);
 
     function displayPoint(point) {
         if (!point.properties.name) {
@@ -122,22 +126,68 @@ const initMap = function(callback) {
 };
 
 const output = (function() {
+    function createDOM(parentNode, html) {
+        const fragment = document.createElement('div');
+        fragment.innerHTML = html;
+
+        while (fragment.firstChild) {
+            parentNode.appendChild(fragment.firstChild);
+        }
+    }
+
+    function getResultDOM() {
+        return document.getElementById('result');
+    }
+
+    function whenReady(callback) {
+        const exist = Boolean(getResultDOM());
+        if (exist) {
+            callback();
+            return null;
+        }
+
+        createDOM(document.body, `
+            <div class="o-section" id="result">
+                <div class="o-container">
+                    <h3 id="result-title">Résultat</h3>
+                    <div id="result-details"></div>
+                </div>
+            </div>
+        `);
+        window.requestAnimationFrame(callback);
+    }
 
     function displayTitle(title) {
-        document.getElementById('result-title').innerHTML = title;
+        whenReady(() => {
+            document.getElementById('result-title').innerHTML = title;
+        });
     }
 
     function displayText(text) {
-        document.getElementById('result-details').innerHTML = text;
+        whenReady(() => {
+            document.getElementById('result-details').innerHTML = text;
+        });
+    }
+
+    function displayHtml(html) {
+        whenReady(() => {
+            console.log(html);
+            createDOM(document.querySelector('#result .o-container'), html);
+        });
+    }
+
+    function addMap() {
+        displayHtml('<div id="map"></div>');
     }
 
     return {
         displayTitle,
         displayText,
+        addMap,
     };
 })();
 
-(function() {
+(function formTriangulation() {
     function getCenter(i) {
         function getCoordinates() {
             const input = form[`point${i}.coordinates`].value;
@@ -212,9 +262,12 @@ const output = (function() {
         });
     }
 
+    const form = document.forms.triangulation;
+    if (!form) {
+        return null;
+    }
     let mode = 'update';
     url2form.init('triangulation');
-    const form = document.forms.triangulation;
     form.update.addEventListener('click', () => mode = 'update');
     form.save.addEventListener('click', () => mode = 'save');
     form.addEventListener('submit', function (event) {
@@ -224,4 +277,53 @@ const output = (function() {
         }
     });
     updateMap();
+})();
+
+(function formCueillette() {
+    function updatePick() {
+        if (
+            !form.reference.value.trim() ||
+            !form.pick.value.trim()
+        ) {
+            return false;
+        }
+
+        let reference = form.reference.value.trim();
+        if (!form.withSpaces.checked) {
+            reference = reference.replace(/\s/g, '');
+        }
+
+        let result = '';
+        const pick = form.pick.value.trim().replace(/\s+/g, ' ').split(' ');
+        console.log({ reference, pick }, form.withSpaces.checked);
+        pick.forEach(position => {
+            const index = parseInt(position, 10);
+            if (!index) {
+                return null;
+            }
+            if (!reference[index - 1]) {
+                return null;
+            }
+            result += reference[index - 1];
+        });
+
+        output.displayTitle('Résultat');
+        output.displayText(result);
+    }
+
+    const form = document.forms.cueillette;
+    if (!form) {
+        return null;
+    }
+    let mode = 'update';
+    url2form.init('cueillette');
+    form.update.addEventListener('click', () => mode = 'update');
+    form.save.addEventListener('click', () => mode = 'save');
+    form.addEventListener('submit', function (event) {
+        if (mode === 'update') {
+            event.preventDefault();
+            updatePick();
+        }
+    });
+    updatePick();
 })();

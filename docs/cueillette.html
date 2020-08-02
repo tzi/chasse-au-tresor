@@ -26,7 +26,32 @@
     </div>
     <div class="o-section">
         <div class="o-container">
-            <p>Travail en cours.</p>
+            <form name="cueillette">
+                <label class="c-input">
+                    <div class="c-input__label">
+                        Texte de référence
+                    </div>
+                    <textarea class="c-input__input" name="reference" required></textarea>
+                </label>
+                <label class="c-input">
+                    <div class="c-input__label">
+                        Position des lettres à sélectionner
+                    </div>
+                    <input type="text" class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required />
+                </label>
+                <h3>Options</h3>
+                <label class="c-input">
+                    <div class="c-input__label">
+                        <input type="checkbox" name="withSpaces" />
+                        Compter les espaces ?
+                    </div>
+                </label>
+
+                <div class="c-action">
+                    <button name="update" class="c-button">Cueillir</button>
+                    <button name="save" class="c-button">Sauvegarder</button>
+                </div>
+            </form>
         </div>
     </div>
 <body>
