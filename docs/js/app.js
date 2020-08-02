@@ -121,6 +121,22 @@ const initMap = function(callback) {
     }
 };
 
+const output = (function() {
+
+    function displayTitle(title) {
+        document.getElementById('result-title').innerHTML = title;
+    }
+
+    function displayText(text) {
+        document.getElementById('result-details').innerHTML = text;
+    }
+
+    return {
+        displayTitle,
+        displayText,
+    };
+})();
+
 (function() {
     function getCenter(i) {
         function getCoordinates() {
@@ -208,20 +224,4 @@ const initMap = function(callback) {
         }
     });
     updateMap();
-})();
-
-const output = (function() {
-
-    function displayTitle(title) {
-        document.getElementById('result-title').innerHTML = title;
-    }
-
-    function displayText(text) {
-        document.getElementById('result-details').innerHTML = text;
-    }
-
-    return {
-        displayTitle,
-        displayText,
-    };
 })();

@@ -23,16 +23,38 @@ html {
 .c-topbar {
     padding: 10px 0;
     background: #F45702;
-
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
 }
 
 .c-topbar__title {
     margin: 0;
+
+    color: white;
     font: inherit;
+    font-weight: bold;
     text-align: center;
+    text-transform: uppercase;
+}
+
+.c-menu {
+    padding: 10px 0;
+    background: #D8AE5C;
+}
+
+.c-menu__title {
+    display: block;
+    margin: 0;
+
+    color: inherit;
+    font: inherit;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.c-menu__title::after {
+    content: ' \25BC';
+    display: inline;
 }
 
 .c-input {
