@@ -109,6 +109,10 @@ html {
     color: rgba(42, 41, 62, 0.5);
 }
 
+textarea.c-input__input {
+    resize: vertical;
+}
+
 .c-action {
     text-align: center;
 }
