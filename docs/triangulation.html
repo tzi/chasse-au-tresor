@@ -25,43 +25,45 @@
         </div>
     </div>
     <div class="o-section">
-        <div class="o-container">
-            <form name="triangulation">
-                <h3>Point 1</h3>
-                <label class="c-input">
-                    <div class="c-input__label">
-                        Coordonnées GPS <em>(lat, long)</em>
-                    </div>
-                    <input type="text" class="c-input__input" name="point1.coordinates" placeholder="44.33918, 1.20851" required />
-                </label>
-                <label class="c-input">
-                    <div class="c-input__label">
-                        Distance <em>(mètres)</em>
-                    </div>
-                    <input type="text" class="c-input__input" name="point1.distance" placeholder="314 159" required />
-                </label>
+        <div class="o-section">
+            <div class="o-container">
+                <form name="triangulation">
+                    <h3>Point 1</h3>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Coordonnées GPS <em>(lat, long)</em>
+                        </div>
+                        <input type="text" class="c-input__input" name="point1.coordinates" placeholder="44.33918, 1.20851" required />
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Distance <em>(mètres)</em>
+                        </div>
+                        <input type="text" class="c-input__input" name="point1.distance" placeholder="314 159" required />
+                    </label>
 
-                <h3>Point 2</h3>
-                <label class="c-input">
-                    <div class="c-input__label">
-                        Coordonnées GPS <em>(lat, long)</em>
-                    </div>
-                    <input type="text" class="c-input__input" name="point2.coordinates" placeholder="44.33918, 1.20851" required />
-                </label>
-                <label class="c-input">
-                    <div class="c-input__label">
-                        Distance <em>(mètres)</em>
-                    </div>
-                    <input type="text" class="c-input__input" name="point2.distance" placeholder="314 159" required />
-                </label>
+                    <h3>Point 2</h3>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Coordonnées GPS <em>(lat, long)</em>
+                        </div>
+                        <input type="text" class="c-input__input" name="point2.coordinates" placeholder="44.33918, 1.20851" required />
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Distance <em>(mètres)</em>
+                        </div>
+                        <input type="text" class="c-input__input" name="point2.distance" placeholder="314 159" required />
+                    </label>
 
-                <div class="c-action">
-                    <button name="update" class="c-button">Calculer</button>
-                </div>
-            </form>
+                    <div class="c-action">
+                        <button name="update" class="c-button">Calculer</button>
+                    </div>
+                </form>
+            </div>
         </div>
+        <div id="output"></div>
     </div>
-    <div id="output"></div>
     <div class="c-footer">
         <div class="o-container">
             <div class="c-footer__sponsor">

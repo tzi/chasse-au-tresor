@@ -38,8 +38,20 @@ main {
  */
 
 h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
+    font-size: 16px;
+    margin: 0;
+}
+
+h2 {
+    font-size: 16px;
+    margin: 0;
+}
+
+h3,
+.like-h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
 }
 
 /* Grouping content

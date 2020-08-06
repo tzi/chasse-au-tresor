@@ -25,41 +25,43 @@
         </div>
     </div>
     <div class="o-section">
-        <div class="o-container">
-            <form name="cueillette">
-                <label class="c-input">
-                    <div class="c-input__label">
-                        Texte de référence
-                    </div>
-                    <textarea class="c-input__input" name="reference" required></textarea>
-                </label>
-                <label class="c-input">
-                    <div class="c-input__label">
-                        Position des lettres à sélectionner
-                    </div>
-                    <input type="text" class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required />
-                </label>
-                <h3>Options</h3>
-                <label class="c-input">
-                    <div class="c-input__label">
-                        <input type="checkbox" name="withSpaces" />
-                        Compter les espaces ?
-                    </div>
-                </label>
-                <label class="c-input">
-                    <div class="c-input__label">
-                        <input type="checkbox" name="withPunctuation" />
-                        Compter les signes de ponctuation ?
-                    </div>
-                </label>
+        <div class="o-section">
+            <div class="o-container">
+                <form name="cueillette">
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Texte de référence
+                        </div>
+                        <textarea class="c-input__input" name="reference" required></textarea>
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Position des lettres à sélectionner
+                        </div>
+                        <input type="text" class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required />
+                    </label>
+                    <h3>Options</h3>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <input type="checkbox" name="withSpaces" />
+                            Compter les espaces ?
+                        </div>
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <input type="checkbox" name="withPunctuation" />
+                            Compter les signes de ponctuation ?
+                        </div>
+                    </label>
 
-                <div class="c-action">
-                    <button name="update" class="c-button">Cueillir</button>
-                </div>
-            </form>
+                    <div class="c-action">
+                        <button name="update" class="c-button">Cueillir</button>
+                    </div>
+                </form>
+            </div>
         </div>
+        <div id="output"></div>
     </div>
-    <div id="output"></div>
     <div class="c-footer">
         <div class="o-container">
             <div class="c-footer__sponsor">
