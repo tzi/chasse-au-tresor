@@ -15,7 +15,7 @@ function initOutput() {
             </div>
         </div>
     `);
-    document.body.appendChild(section);
+    document.getElementById('output').appendChild(section);
 
     function setTitle(title) {
         section.querySelector('[data-output="title"]').innerHTML = title;

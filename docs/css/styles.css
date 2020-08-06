@@ -20,6 +20,16 @@ html {
     line-height: 1.5;
 }
 
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 [data-output]:empty {
     display: none;
 }
@@ -146,7 +156,23 @@ textarea.c-input__input {
 }
 
 .o-section {
+    padding: 40px 0;
+}
+
+.c-footer {
+    margin-top: auto;
     padding: 20px 0;
+    background: #F2ECD8;
+
+    text-align: center;
+}
+
+.c-footer__sponsor {
+    margin-bottom: 20px;
+    padding: 10px 40px;
+    border: 1px solid #5AAC90;
+    border-radius: 20px;
+    text-align: left;
 }
 
 #map {
