@@ -21,41 +21,29 @@
     </div>
     <div class="c-menu">
         <div class="o-container">
-            <h2 class="c-menu__title"><a href="menu.html">Cueillette de texte</a></h2>
+            <h2 class="c-menu__title"><a href="menu.html">Initiales d'un texte</a></h2>
         </div>
     </div>
     <div class="o-section">
         <div class="o-section">
             <div class="o-container">
-                <form name="cueillette">
+                <form name="initiales">
                     <label class="c-input">
                         <div class="c-input__label">
                             Texte de référence
                         </div>
                         <textarea class="c-input__input" name="reference" required></textarea>
                     </label>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            Position des lettres à sélectionner
-                        </div>
-                        <input type="text" class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required />
-                    </label>
                     <h3>Options</h3>
                     <label class="c-input">
                         <div class="c-input__label">
-                            <input type="checkbox" name="withSpaces" />
-                            Inclure les espaces ?
-                        </div>
-                    </label>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            <input type="checkbox" name="withPunctuation" />
-                            Inclure les signes de ponctuation ?
+                            <input type="checkbox" name="isPunctuationASeparator" />
+                            Séparer aussi à chaque signe de ponctuation ?
                         </div>
                     </label>
 
                     <div class="c-action">
-                        <button name="update" class="c-button">Cueillir</button>
+                        <button name="update" class="c-button">Filtrer</button>
                     </div>
                 </form>
             </div>
@@ -78,6 +66,6 @@
 <script src='js/turf.min.js'></script>
 <script src="js/output.js"></script>
 <script src="js/form.js"></script>
-<script src="cueillette.js"></script>
+<script src="initiales.js"></script>
 </body>
 </html>
