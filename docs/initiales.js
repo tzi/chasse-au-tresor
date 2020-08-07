@@ -1,26 +1,36 @@
-(function formCueillette() {
+(function formInitiales() {
     let output;
     let debug;
 
-    function stripPunctuation(string) {
-        return string.replace(/[^A-Za-zÀ-ÿœ]/g, '');
+    function isPunctuation(letter) {
+        return /[^A-Za-zÀ-ÿœ]/.test(letter);
     }
 
     function update(formData) {
         const reference = formData.get('reference').trim().replace(/\s+/g, ' ');
-        console.log({reference});
-        let words;
-        if (formData.get('isPunctuationASeparator')) {
-            words = reference.match(/[A-Za-zÀ-ÿœ]+/g);
-            console.log({words});
-        } else {
-            words = reference
-                .split(' ')
-                .map(word => stripPunctuation(word));
-            console.log({words});
-        }
+        const positions = [];
+        let previousLetterWasASeparator = true;
+        Array.from(reference).forEach((letter, index) => {
+            if (previousLetterWasASeparator) {
+                if (!isPunctuation(letter)) {
+                    positions.push(index);
+                    previousLetterWasASeparator = false;
+                }
+                return true;
+            }
 
-        const result = words.map(word => word[0]).join('');
+            if (formData.get('isPunctuationASeparator')) {
+                if (isPunctuation(letter)) {
+                    previousLetterWasASeparator = true;
+                }
+                return true;
+            }
+
+            if (letter === ' ') {
+                previousLetterWasASeparator = true;
+            }
+        });
+        const result = positions.map(index => reference[index]).join('');
 
         // Output
         if (output) {
@@ -42,15 +52,13 @@
         debug.setTitle('En détails');
         debug.setDetails(`
             <div style="word-wrap: break-word;">
-                ${words.map(word => {
-                    return Array.from(word).map((letter, index) => {
-                        let style = `font-family: monospace, monospace;`;
-                        if (index === 0) {
-                            style += `background: #D8AE5C;`;
-                        }
+                ${Array.from(reference).map((letter, index) => {
+                    let style = `font-family: monospace, monospace;`;
+                    if (positions.includes(index)) {
+                        style += `background: #D8AE5C;`;
+                    }
 
-                        return `<span style="${style}">${letter}</span>`;
-                    }).join('');
+                    return `<span style="${style}">${letter}</span>`;
                 }).join('')}
             </div>
         `);
