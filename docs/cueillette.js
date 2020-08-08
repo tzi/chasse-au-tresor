@@ -8,7 +8,7 @@
             reference = reference.replace(/\s/g, '');
         }
         if (!formData.get('withPunctuation')) {
-            reference = reference.replace(/[^A-Za-zÀ-ÿœ]/g, '');
+            reference = reference.replace(/[^A-Za-zÀ-ž]/g, '');
         }
 
         const pick = formData.get('pick')
