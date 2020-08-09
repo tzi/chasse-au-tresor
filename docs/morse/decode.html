@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Les outils du chasseur de trésor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Les outils du chasseur de trésor">
+    <meta name="author" content="tzi.fr">
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
+</head>
+    <div class="c-topbar">
+        <div class="o-container">
+            <h1 class="c-topbar__title"><a href="./">Chasse au trésor</a></h1>
+        </div>
+    </div>
+    <div class="c-menu">
+        <div class="o-container">
+            <h2 class="c-menu__title"><a href="../menu.html">Décode de morse</a></h2>
+        </div>
+    </div>
+    <div class="o-section">
+        <div class="o-section">
+            <div class="o-container">
+                <form name="morse">
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Message en morse
+                        </div>
+                        <input type="text" class="c-input__input" name="morse" placeholder=". . . - - . -" required />
+                    </label>
+
+                    <div class="c-action">
+                        <button name="update" class="c-button">Décoder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="output"></div>
+    </div>
+    <div class="c-footer">
+        <div class="o-container">
+            <div class="c-footer__sponsor">
+                Cet outil est sponsorisé par <a href="https://zupple.fr">Zupple</a>,
+                un jeu mobile qui vous permet d'accéder à des dizaines
+                d'énigmes dans les rues de Lyon !
+            </div>
+            &copy; Créé avec passion par <a href="https://tzi.fr">Thomas</a>.
+        </div>
+    </div>
+<body>
+
+<script src='../js/url2form.min.js'></script>
+<script src='../js/turf.min.js'></script>
+<script src="../js/output.js"></script>
+<script src="../js/form.js"></script>
+<script src="decode.js"></script>
+</body>
+</html>
