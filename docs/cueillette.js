@@ -28,6 +28,20 @@
 
             return index;
         });
+        if (formData.get('isLoop')) {
+            const pattern = pick.slice(0);
+            let last = pattern[pattern.length - 1];
+            while (last < reference.length) {
+                pick.push(' ');
+                pattern.forEach((item, index) => {
+                    if (typeof item === 'number') {
+                        item = last + pattern[index];
+                    }
+                    pick.push(item);
+                });
+                last += pattern[pattern.length - 1];
+            }
+        }
 
         const result = pick.map(index => {
             if (typeof index !== 'number') {
@@ -61,7 +75,7 @@
                 ${Array.from(reference).map((char, index) => {
                     let style = `font-family: monospace, monospace;`;
                     let title = '';
-                    const pickIndex = pick.findIndex(value => value === (index + 1).toString());
+                    const pickIndex = pick.findIndex(value => value === index + 1);
                     if (pickIndex > -1) {
                         style += `background: #D8AE5C;`;
                         title = `Numéro ${index + 1} -> Position ${pickIndex + 1}`;
@@ -73,5 +87,22 @@
         `);
     }
 
-    initForm('cueillette', update);
+    function init(form) {
+        const isLoopInput = form.isLoop.parentNode.parentNode;
+
+        function toggleIsLoop() {
+            if (form.isRelative.checked) {
+                isLoopInput.style.display = '';
+            } else {
+                isLoopInput.style.display = 'none';
+            }
+        }
+
+        form.isRelative.addEventListener('change', function () {
+            toggleIsLoop();
+        });
+        toggleIsLoop();
+    }
+
+    initForm('cueillette', update, init);
 })();

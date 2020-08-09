@@ -1,4 +1,4 @@
-function initForm(formName, compute) {
+function initForm(formName, compute, init) {
     let share;
     const form = document.forms[formName];
 
@@ -25,6 +25,9 @@ function initForm(formName, compute) {
         return null;
     }
     url2form.init(formName);
+    if (init) {
+        init(form);
+    }
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         update();
