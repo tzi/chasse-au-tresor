@@ -63,7 +63,7 @@
         const possibilities = decode(message, '');
 
         // Output
-        result.setTitle('Résultat');
+        result.setTitle(`${possibilities.length} résultats`);
         result.setDetails(`
             <ul>
                 ${possibilities.map(item => `<li>${item}</li>`).join('')}
