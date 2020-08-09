@@ -8,19 +8,32 @@
             reference = reference.replace(/\s/g, '');
         }
         if (!formData.get('withPunctuation')) {
-            reference = reference.replace(/[^A-Za-zÀ-ž]/g, '');
+            reference = reference.replace(/[^A-Za-zÀ-ž ]/g, '');
         }
 
-        const pick = formData.get('pick')
+        let total = 0;
+        let pick = formData.get('pick')
             .trim()
             .replace(/\s+/g, ' ')
             .match(/[\d]+|\D+/g);
-
-        const result = pick.map(item => {
-            const index = parseInt(item, 10);
+        pick = pick.map(item => {
+            let index = parseInt(item, 10);
             if (!index) {
                 return item;
             }
+            if (formData.get('isRelative')) {
+                total += index;
+                index = total;
+            }
+
+            return index;
+        });
+
+        const result = pick.map(index => {
+            if (typeof index !== 'number') {
+                return index;
+            }
+
             if (!reference[index - 1]) {
                 console.error(`${index} not available in reference string`);
                 return false;
