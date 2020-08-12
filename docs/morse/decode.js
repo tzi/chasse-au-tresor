@@ -77,15 +77,36 @@
         }).filter(Boolean).flat();
     }
 
+    function multiply(array, start) {
+        if (array.length === 0) {
+            return start;
+        }
+
+        if (typeof array[0] === 'string') {
+            return multiply(array.slice(1), start + array[0]);
+        }
+
+        return array[0].map(item => {
+            return multiply(array.slice(1), start + item);
+        }).flat();
+    }
+
     function update(formData) {
-        const message = formData.get('morse').replace(/[^\.-]*/g, '');
+        const message = formData.get('morse').match(/([^\.-]+|[\.-]+)/g);
+        const maxLength = parseInt(formData.get('maxLength'), 10);
         const options = {
-            maxLength: parseInt(formData.get('maxLength'), 10),
+            maxLength: maxLength + 1 - message.length,
             withNumber: Boolean(formData.get('withNumber')),
             withPunctuation: Boolean(formData.get('withPunctuation')),
         };
-        console.log({ options });
-        const possibilities = decode(message, options, '');
+        const decoded = message.map(messagePart => {
+            if (messagePart[0] !== '.' && messagePart[0] !== '-') {
+                return messagePart;
+            }
+            return decode(messagePart, options, '');
+        });
+        const possibilities = multiply(decoded, '')
+            .filter(possibility => possibility.length <= maxLength);
 
         // Output
         result.setTitle(`${possibilities.length} résultats`);
