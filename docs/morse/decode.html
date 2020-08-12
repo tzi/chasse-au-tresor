@@ -33,6 +33,27 @@
                         </div>
                         <input type="text" class="c-input__input" name="morse" placeholder=". . . - - . -" required />
                     </label>
+                    <h3>Options</h3>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <div class="c-input__label">
+                                Longueur maximum
+                            </div>
+                            <input type="text" class="c-input__input" name="maxLength" value="6" />
+                        </div>
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <input type="checkbox" name="withNumber" />
+                            Avec des chiffres ?
+                        </div>
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <input type="checkbox" name="withPunctuation" />
+                            Avec de la ponctuation ?
+                        </div>
+                    </label>
 
                     <div class="c-action">
                         <button name="update" class="c-button">Décoder</button>
