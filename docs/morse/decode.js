@@ -4,6 +4,10 @@
         LETTER: 'letter',
         PUNCTUATION: 'punctuation',
     };
+    const CHARACTER_GROUP = {
+        CONSONNE: 'consonne',
+        VOYELLE: 'voyelle',
+    };
     const MORSE_CODE = {
         "-----": { value: "0", type: CHARACTER_TYPE.NUMBER },
         ".----": { value: "1", type: CHARACTER_TYPE.NUMBER },
@@ -15,32 +19,32 @@
         "--...": { value: "7", type: CHARACTER_TYPE.NUMBER },
         "---..": { value: "8", type: CHARACTER_TYPE.NUMBER },
         "----.": { value: "9", type: CHARACTER_TYPE.NUMBER },
-        ".-": { value: "A", type: CHARACTER_TYPE.LETTER },
-        "-...": { value: "B", type: CHARACTER_TYPE.LETTER },
-        "-.-.": { value: "C", type: CHARACTER_TYPE.LETTER },
-        "-..": { value: "D", type: CHARACTER_TYPE.LETTER },
-        ".": { value: "E", type: CHARACTER_TYPE.LETTER },
-        "..-.": { value: "F", type: CHARACTER_TYPE.LETTER },
-        "--.": { value: "G", type: CHARACTER_TYPE.LETTER },
-        "....": { value: "H", type: CHARACTER_TYPE.LETTER },
-        "..": { value: "I", type: CHARACTER_TYPE.LETTER },
-        ".---": { value: "J", type: CHARACTER_TYPE.LETTER },
-        "-.-": { value: "K", type: CHARACTER_TYPE.LETTER },
-        ".-..": { value: "L", type: CHARACTER_TYPE.LETTER },
-        "--": { value: "M", type: CHARACTER_TYPE.LETTER },
-        "-.": { value: "N", type: CHARACTER_TYPE.LETTER },
-        "---": { value: "O", type: CHARACTER_TYPE.LETTER },
-        ".--.": { value: "P", type: CHARACTER_TYPE.LETTER },
-        "--.-": { value: "Q", type: CHARACTER_TYPE.LETTER },
-        ".-.": { value: "R", type: CHARACTER_TYPE.LETTER },
-        "...": { value: "S", type: CHARACTER_TYPE.LETTER },
-        "-": { value: "T", type: CHARACTER_TYPE.LETTER },
-        "..-": { value: "U", type: CHARACTER_TYPE.LETTER },
-        "...-": { value: "V", type: CHARACTER_TYPE.LETTER },
-        ".--": { value: "W", type: CHARACTER_TYPE.LETTER },
-        "-..-": { value: "X", type: CHARACTER_TYPE.LETTER },
-        "-.--": { value: "Y", type: CHARACTER_TYPE.LETTER },
-        "--..": { value: "Z", type: CHARACTER_TYPE.LETTER },
+        ".-": { value: "A", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.VOYELLE },
+        "-...": { value: "B", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "-.-.": { value: "C", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "-..": { value: "D", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        ".": { value: "E", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.VOYELLE },
+        "..-.": { value: "F", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "--.": { value: "G", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "....": { value: "H", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "..": { value: "I", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.VOYELLE },
+        ".---": { value: "J", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "-.-": { value: "K", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        ".-..": { value: "L", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "--": { value: "M", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "-.": { value: "N", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "---": { value: "O", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.VOYELLE },
+        ".--.": { value: "P", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "--.-": { value: "Q", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        ".-.": { value: "R", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "...": { value: "S", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "-": { value: "T", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "..-": { value: "U", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.VOYELLE },
+        "...-": { value: "V", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        ".--": { value: "W", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "-..-": { value: "X", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
+        "-.--": { value: "Y", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.VOYELLE },
+        "--..": { value: "Z", type: CHARACTER_TYPE.LETTER, group: CHARACTER_GROUP.CONSONNE },
         "-.-.--": { value: "!", type: CHARACTER_TYPE.PUNCTUATION },
         ".-.-.-": { value: ".", type: CHARACTER_TYPE.PUNCTUATION },
         "--..--": { value: ",", type: CHARACTER_TYPE.PUNCTUATION },
@@ -93,7 +97,10 @@
 
     function update(formData) {
         const message = formData.get('morse').match(/([^\.-]+|[\.-]+)/g);
-        const maxLength = parseInt(formData.get('maxLength'), 10);
+        const maxLength = formData.get('maxLength') && parseInt(formData.get('maxLength'), 10);
+        const minLength = formData.get('minLength') && parseInt(formData.get('minLength'), 10);
+        const maxVoyelles = formData.get('maxVoyelles') && parseInt(formData.get('maxVoyelles'), 10);
+        const maxConsonnes = formData.get('maxConsonnes') && parseInt(formData.get('maxConsonnes'), 10);
         const options = {
             maxLength: maxLength + 1 - message.length,
             withNumber: Boolean(formData.get('withNumber')),
@@ -106,13 +113,16 @@
             return decode(messagePart, options, '');
         });
         const possibilities = multiply(decoded, '')
-            .filter(possibility => possibility.length <= maxLength);
+            .filter(possibility => !maxLength || possibility.length <= maxLength)
+            .filter(possibility => !minLength || possibility.length >= minLength)
+            .filter(possibility => !maxVoyelles || possibility.match(/[aeiouy]/gi).length <= maxVoyelles)
+            .filter(possibility => !maxConsonnes || possibility.match(/[bcdfghjklmnpqrstvwxz]/gi).length <= maxConsonnes);
 
         // Output
         result.setTitle(`${possibilities.length} résultats`);
         result.setDetails(`
             <ul>
-                ${possibilities.map(item => `<li>${item}</li>`).join('')}
+                ${possibilities.sort().map(item => `<li>${item}</li>`).join('')}
             </ul>
         `);
     }
