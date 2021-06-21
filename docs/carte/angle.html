@@ -2,45 +2,44 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Les outils du chasseur de trésor</title>
+    <title>Angle avec le nord | Les outils du chasseur de trésor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Les outils du chasseur de trésor">
     <meta name="author" content="tzi.fr">
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
 </head>
 <body>
     <div class="c-topbar">
         <div class="o-container">
-            <h1 class="c-topbar__title"><a href="./">Chasse au trésor</a></h1>
+            <h1 class="c-topbar__title"><a href="..">Chasse au trésor</a></h1>
         </div>
     </div>
     <div class="c-menu">
         <div class="o-container">
-            <h2 class="c-menu__title"><a href="menu.html">Triangulation</a></h2>
+            <h2 class="c-menu__title"><a href="../menu.html">Cartographie</a></h2>
+        </div>
+    </div>
+    <div class="c-menu">
+        <div class="o-container">
+            <h3 class="c-menu__title"><a href="./index.html">Angle avec le nord</a></h3>
         </div>
     </div>
     <div class="o-section">
         <div class="o-section">
             <div class="o-container">
-                <form name="triangulation">
+                <form name="angle">
                     <h3>Point 1</h3>
                     <label class="c-input">
                         <div class="c-input__label">
                             Coordonnées GPS <em>(lat, long)</em>
                         </div>
                         <input type="text" class="c-input__input" name="point1.coordinates" placeholder="44.33918, 1.20851" required />
-                    </label>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            Distance <em>(mètres)</em>
-                        </div>
-                        <input type="text" class="c-input__input" name="point1.distance" placeholder="314 159" required />
                     </label>
 
                     <h3>Point 2</h3>
@@ -49,12 +48,6 @@
                             Coordonnées GPS <em>(lat, long)</em>
                         </div>
                         <input type="text" class="c-input__input" name="point2.coordinates" placeholder="44.33918, 1.20851" required />
-                    </label>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            Distance <em>(mètres)</em>
-                        </div>
-                        <input type="text" class="c-input__input" name="point2.distance" placeholder="314 159" required />
                     </label>
 
                     <div class="c-action">
@@ -76,12 +69,12 @@
         </div>
     </div>
 
-<script src='js/url2form.min.js'></script>
-<script src='js/turf.min.js'></script>
-<script src="js/output.js"></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
-<script src="js/map.js"></script>
-<script src="js/form.js"></script>
-<script src="triangulation.js"></script>
+    <script src='../js/url2form.min.js'></script>
+    <script src='turf.min.js'></script>
+    <script src="../js/output.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+    <script src="map.js"></script>
+    <script src="../js/form.js"></script>
+    <script src="angle.js"></script>
 </body>
 </html>

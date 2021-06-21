@@ -59,6 +59,7 @@ body {
 .c-menu {
     padding: 10px 0;
     background: #D8AE5C;
+    border-bottom: 1px solid #a38346;
 }
 
 .c-menu__title {
