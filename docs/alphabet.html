@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Cueillette de lettres - Les outils du chasseur de trésor</title>
+    <title>L’alphabet - Les outils du chasseur de trésor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Les outils du chasseur de trésor">
     <meta name="author" content="tzi.fr">
@@ -21,13 +21,13 @@
     </div>
     <div class="c-menu">
         <div class="o-container">
-            <h2 class="c-menu__title"><a href="menu.html">Cueillette de texte</a></h2>
+            <h2 class="c-menu__title"><a href="menu.html">Alphabet</a></h2>
         </div>
     </div>
     <div class="o-section">
         <div class="o-section">
             <div class="o-container">
-                <form name="cueillette">
+                <form name="alphabet">
                     <label class="c-input">
                         <div class="c-input__label">
                             Texte de référence
@@ -36,38 +36,25 @@
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            Position des lettres à sélectionner
-                        </div>
-                        <input type="text" class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required />
-                    </label>
-                    <h3>Options</h3>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            <input type="checkbox" name="withSpaces" />
-                            Inclure les espaces ?
+                            <input type="checkbox" name="withNumbers" />
+                            Analyser les chiffres ?
                         </div>
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            <input type="checkbox" name="withPunctuation" />
-                            Inclure les signes de ponctuation ?
+                            <input type="checkbox" name="withOtherChars" />
+                            Analyser les autres caractères ?
                         </div>
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            <input type="checkbox" name="isRelative" />
-                            Positions relatives à la position précédente ?
-                        </div>
-                    </label>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            <input type="checkbox" name="isLoop" />
-                            Boucler ?
+                            <input type="checkbox" name="isCaseSensitive" />
+                            Prendre en compte la casse ?
                         </div>
                     </label>
 
                     <div class="c-action">
-                        <button name="update" class="c-button">Cueillir</button>
+                        <button name="update" class="c-button">Analyser l’alphabet</button>
                     </div>
                 </form>
             </div>
@@ -88,6 +75,6 @@
     <script src='js/url2form.min.js'></script>
     <script src="js/output.js"></script>
     <script src="js/form.js"></script>
-    <script src="cueillette.js"></script>
+    <script src="alphabet.js"></script>
 </body>
 </html>
