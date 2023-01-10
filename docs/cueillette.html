@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Cueillette de lettres - Les outils du chasseur de trésor</title>
+    <title>Cueillette de lettres et de mots - Les outils du chasseur de trésor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Les outils du chasseur de trésor">
     <meta name="author" content="tzi.fr">
@@ -36,14 +36,26 @@
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            Position des lettres à sélectionner
+                            Positions à sélectionner
                         </div>
-                        <input type="text" class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required />
+                        <textarea class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required></textarea>
                     </label>
                     <h3>Options</h3>
                     <label class="c-input">
                         <div class="c-input__label">
-                            <input type="checkbox" name="withSpaces" />
+                            <input type="radio" name="what" value="letter" checked />
+                            Cueillir les lettres
+                        </div>
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <input type="radio" name="what" value="word" />
+                            Cueillir les mots
+                        </div>
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <input type="checkbox" name="withSpaces"  />
                             Inclure les espaces ?
                         </div>
                     </label>
@@ -86,6 +98,7 @@
     </div>
 
     <script src='js/url2form.min.js'></script>
+    <script src="js/input.js"></script>
     <script src="js/output.js"></script>
     <script src="js/form.js"></script>
     <script src="cueillette.js"></script>

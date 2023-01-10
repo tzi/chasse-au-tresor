@@ -3,58 +3,84 @@
     let debug;
 
     function update(formData) {
-        let reference = formData.get('reference').trim();
-        if (!formData.get('withSpaces')) {
-            reference = reference.replace(/\s/g, '');
-        }
-        if (!formData.get('withPunctuation')) {
-            reference = reference.replace(/[^A-Za-zÀ-ž ]/g, '');
-        }
-
-        let total = 0;
-        let pick = formData.get('pick')
-            .trim()
-            .replace(/\s+/g, ' ')
-            .match(/[\d]+|\D+/g);
-        pick = pick.map(item => {
-            let index = parseInt(item, 10);
-            if (!index) {
-                return item;
-            }
-            if (formData.get('isRelative')) {
-                total += index;
-                index = total;
-            }
-
-            return index;
+        const isLetterPicking = formData.get('what') === 'letter';
+        const isWordPicking = formData.get('what') === 'word';
+        let reference = getInput(formData, 'reference', {
+            withLetter: true,
+            withNumber: true,
+            withSpaces: isWordPicking || formData.get('withSpaces'),
+            withPunctuation: isWordPicking || formData.get('withPunctuation'),
         });
-        if (formData.get('isLoop')) {
-            const pattern = pick.slice(0);
-            let last = pattern[pattern.length - 1];
-            while (last < reference.length) {
-                pick.push(' ');
-                pattern.forEach((item, index) => {
-                    if (typeof item === 'number') {
-                        item = last + pattern[index];
-                    }
-                    pick.push(item);
-                });
-                last += pattern[pattern.length - 1];
+        let pick = getInput(formData, 'pick', {
+            withLetter: false,
+            withNumber: true,
+            withSpaces: true,
+            withPunctuation: false,
+        });
+
+        function referenceToList(string) {
+            if (isLetterPicking) {
+                return Array.from(string);
             }
+
+            return cutInWords(string, {
+                isPunctuationASeparator: true,
+            });
         }
 
-        const result = pick.map(index => {
-            if (typeof index !== 'number') {
-                return index;
+        pick = pick.map(function(pickLine, lineIndex) {
+            let total = 0;
+
+            pickLine = pickLine
+                .replace(/\s+/g, ' ')
+                .match(/[\d]+|\D+/g)
+                .map(item => {
+                    let index = parseInt(item, 10);
+                    if (!index) {
+                        return item;
+                    }
+                    if (formData.get('isRelative')) {
+                        total += index;
+                        index = total;
+                    }
+
+                    return index;
+                });
+
+            if (formData.get('isLoop')) {
+                const pattern = pickLine.slice(0);
+                let last = pattern[pattern.length - 1];
+                const referenceArray = referenceToList(reference[lineIndex]);
+                while (last < referenceArray.length) {
+                    pickLine.push(' ');
+                    pattern.forEach((item, index) => {
+                        if (typeof item === 'number') {
+                            item = last + pattern[index];
+                        }
+                        pickLine.push(item);
+                    });
+                    last += pattern[pattern.length - 1];
+                }
             }
 
-            if (!reference[index - 1]) {
-                console.error(`${index} not available in reference string`);
-                return false;
-            }
+            return pickLine;
+        });
 
-            return reference[index - 1];
-        }).filter(item => item !== false).join('');
+        const result = pick.map(function(pickLine, lineIndex) {
+            return pickLine.map(function(index) {
+                if (typeof index !== 'number') {
+                    return index;
+                }
+
+                const referenceArray = referenceToList(reference[lineIndex]);
+                if (!referenceArray[index - 1]) {
+                    console.error(`${index} not available in ${lineIndex + 1}e reference string`);
+                    return false;
+                }
+
+                return referenceArray[index - 1];
+            }).filter(item => item !== false).join('');
+        }).join(' ');
 
         // Output
         if (output) {
@@ -72,16 +98,23 @@
         debug.setTitle('En détails');
         debug.setDetails(`
             <div style="word-wrap: break-word;">
-                ${Array.from(reference).map((char, index) => {
-                    let style = `font-family: monospace, monospace;`;
-                    let title = '';
-                    const pickIndex = pick.findIndex(value => value === index + 1);
-                    if (pickIndex > -1) {
-                        style += `background: #D8AE5C;`;
-                        title = `Numéro ${index + 1} -> Position ${pickIndex + 1}`;
-                    }
-        
-                    return `<span style="${style}" title="${title}">${char}</span>`;
+                ${reference.map(function(referenceLine, lineIndex) {
+                    const referenceArray = referenceToList(referenceLine);
+                    
+                    return `
+                        <p>
+                            ${referenceArray.map((char, index) => {
+                                let style = `font-family: monospace, monospace;`;
+                                let title = `${isWordPicking ? 'Mot' : 'Lettre'} n° ${index + 1}`;
+                                const pickIndex = pick[lineIndex].findIndex(value => value === index + 1);
+                                if (pickIndex > -1) {
+                                    style += `background: #D8AE5C;`;
+                                }
+                    
+                                return `<span style="${style}" title="${title}">${char}</span>`;
+                            }).join(isWordPicking ? ' ' : '')}
+                        </p>
+                    `;
                 }).join('')}
             </div>
         `);
@@ -89,6 +122,8 @@
 
     function init(form) {
         const isLoopInput = form.isLoop.parentNode.parentNode;
+        const withSpacesInput = form.withSpaces.parentNode.parentNode;
+        const withPunctuationInput = form.withPunctuation.parentNode.parentNode;
 
         function toggleIsLoop() {
             if (form.isRelative.checked) {
@@ -98,10 +133,22 @@
             }
         }
 
-        form.isRelative.addEventListener('change', function () {
-            toggleIsLoop();
-        });
+        form.isRelative.addEventListener('input', toggleIsLoop);
         toggleIsLoop();
+
+        function toggleTypo() {
+            if (form.what.value === 'letter') {
+                withSpacesInput.style.display = '';
+                withPunctuationInput.style.display = '';
+            } else {
+                withSpacesInput.style.display = 'none';
+                withPunctuationInput.style.display = 'none';
+            }
+        }
+        Array.from(form.what).forEach(function(input) {
+            input.addEventListener('input', toggleTypo);
+        })
+        toggleTypo();
     }
 
     initForm('cueillette', update, init);
