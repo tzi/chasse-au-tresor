@@ -5,6 +5,7 @@
     function update(formData) {
         const isLetterPicking = formData.get('what') === 'letter';
         const isWordPicking = formData.get('what') === 'word';
+        const isWithEachLine = formData.get('withEachLine');
         let reference = getInput(formData, 'reference', {
             withLetter: true,
             withNumber: true,
@@ -17,6 +18,10 @@
             withSpaces: true,
             withPunctuation: false,
         });
+        if (!isWithEachLine) {
+            reference = [reference.join('\n')];
+            pick = [pick.join('\n')];
+        }
 
         function referenceToList(string) {
             if (isLetterPicking) {
@@ -27,7 +32,6 @@
                 isPunctuationASeparator: true,
             });
         }
-
         pick = pick.map(function(pickLine, lineIndex) {
             let total = 0;
 
@@ -100,6 +104,9 @@
             <div style="word-wrap: break-word;">
                 ${reference.map(function(referenceLine, lineIndex) {
                     const referenceArray = referenceToList(referenceLine);
+                    if (!pick[lineIndex]) {
+                        return null;
+                    }
                     
                     return `
                         <p>
