@@ -2,16 +2,16 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>L’alphabet - Les outils du chasseur de trésor</title>
+    <title>Lettres au hasard - Les outils du chasseur de trésor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Les outils du chasseur de trésor">
     <meta name="author" content="tzi.fr">
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles.css">
 
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
 </head>
 <body>
     <div class="c-topbar">
@@ -21,40 +21,34 @@
     </div>
     <div class="c-menu">
         <div class="o-container">
-            <h2 class="c-menu__title"><a href="menu.html">Analyser l’alphabet</a></h2>
+            <h2 class="c-menu__title"><a href="../menu.html">Générer des lettres</a></h2>
         </div>
     </div>
     <div class="o-section">
         <div class="o-section">
             <div class="o-container">
-                <form name="alphabet">
+                <form name="lettres">
                     <label class="c-input">
                         <div class="c-input__label">
-                            Texte de référence
+                            Combien de lettres
                         </div>
-                        <textarea class="c-input__input" name="reference" required></textarea>
+                        <input class="c-input__input" type="number" value="1" name="quantity">
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            <input type="checkbox" name="withNumbers" />
-                            Analyser les chiffres ?
+                            Lettres bannies
                         </div>
+                        <input class="c-input__input" name="banned">
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            <input type="checkbox" name="withOtherChars" />
-                            Analyser les autres caractères ?
-                        </div>
-                    </label>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            <input type="checkbox" name="isCaseSensitive" />
-                            Prendre en compte la casse ?
+                            <input type="checkbox" name="withMinuscules" />
+                            Minuscules et majuscules ?
                         </div>
                     </label>
 
                     <div class="c-action">
-                        <button name="update" class="c-button">Analyser l’alphabet</button>
+                        <button name="update" class="c-button">Générer des lettres</button>
                     </div>
                 </form>
             </div>
@@ -72,9 +66,9 @@
         </div>
     </div>
 
-    <script src='js/url2form.min.js'></script>
-    <script src="js/output.js"></script>
-    <script src="js/form.js"></script>
-    <script src="alphabet.js"></script>
+    <script src='../js/url2form.min.js'></script>
+    <script src="../js/output.js"></script>
+    <script src="../js/form.js"></script>
+    <script src="lettres.js"></script>
 </body>
 </html>
