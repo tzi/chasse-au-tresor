@@ -53,17 +53,12 @@
 
             if (formData.get('isLoop')) {
                 const pattern = pickLine.slice(0);
-                let last = pattern[pattern.length - 1];
-                const referenceArray = referenceToList(reference[lineIndex]);
-                while (last < referenceArray.length) {
-                    pickLine.push(' ');
-                    pattern.forEach((item, index) => {
-                        if (typeof item === 'number') {
-                            item = last + pattern[index];
-                        }
-                        pickLine.push(item);
-                    });
-                    last += pattern[pattern.length - 1];
+                const last = pattern.findLast(item => !isNaN(item));
+                const singleReference = reference[lineIndex];
+                let referenceArray = referenceToList(reference[lineIndex]);
+                while (last > referenceArray.length) {
+                    reference[lineIndex] += singleReference;
+                    referenceArray = referenceToList(reference[lineIndex]);
                 }
             }
 
