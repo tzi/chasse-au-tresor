@@ -16,7 +16,7 @@ function initForm(formName, compute, init) {
         share.setTitle('Partager / Sauvegarder');
         share.setDetails(`
             <a href="${url}" style="display: block; font-size: 12px">
-                ${url}
+                Lien direct
             </a>
         `);
     }

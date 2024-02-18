@@ -28,7 +28,12 @@
                 return false;
             }
             const coords = pickItem.split('.');
-            const referenceLine = referenceLineList[coords[0]];
+            coords[0] = parseInt(coords[0], 10);
+            if (!coords[0]) {
+                output.addError('Mauvaises coordonnées. Ligne invalide dans : "' + pickItem + '"');
+                return false;
+            }
+            const referenceLine = referenceLineList[coords[0] - 1];
             if (!referenceLine) {
                 output.addError('Mauvaises coordonnées. Ligne "' + coords[0] + '" introuvable dans : "' + pickItem + '"');
                 return false;
@@ -36,7 +41,7 @@
 
             coords[1] = parseInt(coords[1], 10);
             if (!coords[1]) {
-                output.addError('Mauvaises coordonnées. Lettre "' + coords[1] + '" introuvable dans : "' + pickItem + '"');
+                output.addError('Mauvaises coordonnées. Lettre invalide dans : "' + pickItem + '"');
                 return false;
             }
             const letter = referenceLine[coords[1] - 1];
