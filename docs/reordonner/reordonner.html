@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Reordonner avec une clé - Les outils du chasseur de trésor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Les outils du chasseur de trésor">
+    <meta name="author" content="tzi.fr">
+
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon.png">
+</head>
+<body>
+    <div class="c-topbar">
+        <div class="o-container">
+            <h1 class="c-topbar__title"><a href="..">Chasse au trésor</a></h1>
+        </div>
+    </div>
+    <div class="c-menu">
+        <div class="o-container">
+            <h2 class="c-menu__title"><a href="../menu.html">Réordonner</a></h2>
+        </div>
+    </div>
+    <div class="o-section">
+        <div class="o-section">
+            <div class="o-container">
+                <form name="reordonner">
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Textes à réordonner
+                        </div>
+                        <textarea class="c-input__input" name="reference" required></textarea>
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Clé
+                        </div>
+                        <textarea class="c-input__input" name="key" placeholder="La Conjuration" required></textarea>
+                    </label>
+
+                    <h3>Options</h3>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            <input type="checkbox" name="reverse"  />
+                            À l’envers
+                        </div>
+                    </label>
+
+                    <div class="c-action">
+                        <button name="update" class="c-button">Réordonner</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="output"></div>
+    </div>
+    <div class="c-footer">
+        <div class="o-container">
+            <div class="c-footer__sponsor">
+                Ces outils d’aide à la résolution d’énigmes ont été créés par
+                <a href="https://zupple.fr">Zupple, team building ludique à Lyon</a>&nbsp;!
+            </div>
+            &copy; Copywrite 2024 &mdash; Zupple.
+        </div>
+    </div>
+
+    <script src='../assets/js/url2form.min.js'></script>
+    <script src="../assets/js/input.js"></script>
+    <script src="../assets/js/output.js"></script>
+    <script src="../assets/js/form.js"></script>
+    <script src="reordonner.js"></script>
+</body>
+</html>
