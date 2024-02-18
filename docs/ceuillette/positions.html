@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Cueillette de lettres et de mots - Les outils du chasseur de trésor</title>
+    <title>Cueillette de lettres et de mots par position- Les outils du chasseur de trésor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Les outils du chasseur de trésor">
     <meta name="author" content="tzi.fr">
@@ -21,7 +21,7 @@
     </div>
     <div class="c-menu">
         <div class="o-container">
-            <h2 class="c-menu__title"><a href="../menu.html">Cueillette de texte</a></h2>
+            <h2 class="c-menu__title"><a href="../menu.html">Cueillette par positions</a></h2>
         </div>
     </div>
     <div class="o-section">
@@ -36,7 +36,7 @@
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            Positions à sélectionner
+                            Positions à cueillir
                         </div>
                         <textarea class="c-input__input" name="pick" placeholder="2 3 5 8 13 21" required></textarea>
                     </label>
@@ -62,25 +62,25 @@
                     <label class="c-input">
                         <div class="c-input__label">
                             <input type="checkbox" name="withSpaces"  />
-                            Inclure les espaces ?
+                            Inclure les espaces&nbsp;?
                         </div>
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
                             <input type="checkbox" name="withPunctuation" />
-                            Inclure les signes de ponctuation ?
+                            Inclure les signes de ponctuation&nbsp;?
                         </div>
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
                             <input type="checkbox" name="isRelative" />
-                            Positions relatives à la position précédente ?
+                            Positions relatives à la position précédente&nbsp;?
                         </div>
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
                             <input type="checkbox" name="isLoop" />
-                            Boucler ?
+                            Boucler&nbsp;?
                         </div>
                     </label>
 
@@ -106,6 +106,6 @@
     <script src="../assets/js/input.js"></script>
     <script src="../assets/js/output.js"></script>
     <script src="../assets/js/form.js"></script>
-    <script src="cueillette.js"></script>
+    <script src="positions.js"></script>
 </body>
 </html>

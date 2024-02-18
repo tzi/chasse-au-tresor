@@ -8,10 +8,10 @@
         }
         output = initOutput();
 
-        let reference = getInput(formData, 'reference', {
+        let referenceLineList = getInput(formData, 'reference', {
             withLetter: true,
             withNumber: true,
-            withSpaces: true,
+            withSpaces: formData.get('withSpaces'),
             withPunctuation: formData.get('withPunctuation'),
         });
         let pick = getInput(formData, 'pick', {
@@ -22,38 +22,26 @@
             singleLine: true,
         });
 
-        const referenceMap = reference.reduce(function(acc, seed) {
-            const split = seed.split(' ');
-            const key = split[0];
-            let value = split.slice(1).join(' ');
-            if (!formData.get('withSpaces')) {
-                value = value.replace(/\s+/, '');
-            }
-            acc[key] = value;
-
-            return acc;
-        }, {});
-
         const pickedLetters = pick.split(' ').filter(Boolean).map(function(pickItem) {
             if (!pickItem.includes('.')) {
                 output.addError('Mauvais format de coordonnées. Il manque un point dans : "' + pickItem + '"');
                 return false;
             }
             const coords = pickItem.split('.');
-            const referenceText = referenceMap[coords[0]];
-            if (!referenceText) {
-                output.addError('Mauvaises coordonnées. Texte "' + coords[0] + '" introuvable dans : "' + pickItem + '"');
+            const referenceLine = referenceLineList[coords[0]];
+            if (!referenceLine) {
+                output.addError('Mauvaises coordonnées. Ligne "' + coords[0] + '" introuvable dans : "' + pickItem + '"');
                 return false;
             }
 
             coords[1] = parseInt(coords[1], 10);
             if (!coords[1]) {
-                output.addError('Mauvaises coordonnées. Index "' + coords[1] + '" invalide dans : "' + pickItem + '"');
+                output.addError('Mauvaises coordonnées. Lettre "' + coords[1] + '" introuvable dans : "' + pickItem + '"');
                 return false;
             }
-            const letter = referenceText[coords[1] - 1];
+            const letter = referenceLine[coords[1] - 1];
             if (!letter) {
-                output.addError('Mauvaises coordonnées. Index "' + coords[1] + '" trop grand (maximum ' + referenceText.length + ') dans : "' + pickItem + '"');
+                output.addError('Mauvaises coordonnées. Lettre "' + coords[1] + '" introuvable (maximum ' + referenceLine.length + ') dans : "' + pickItem + '"');
                 return false;
             }
 
@@ -71,5 +59,5 @@
     function init() {
     }
 
-    initForm('cueilletteMultiple', update, init);
+    initForm('cueilletteCoordonnees', update, init);
 })();
