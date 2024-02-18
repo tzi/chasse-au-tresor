@@ -3,7 +3,7 @@ function cutInWords(string, options = {}) {
 }
 
 function getInput(formData, name, options) {
-    return formData.get(name)
+    const lineList = formData.get(name)
         .split("\n")
         .map(function(line) {
             line = line.trim();
@@ -26,4 +26,10 @@ function getInput(formData, name, options) {
             return line;
         })
         .filter(Boolean);
+
+    if (options.singleLine) {
+        return lineList[0];
+    }
+
+    return lineList;
 }

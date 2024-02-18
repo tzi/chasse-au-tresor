@@ -1,4 +1,6 @@
 function initOutput() {
+    let hasError = false;
+
     function createDOM(html) {
         const fragment = document.createElement('div');
         fragment.innerHTML = html;
@@ -25,15 +27,32 @@ function initOutput() {
         section.querySelector('[data-output="details"]').innerHTML = html;
     }
 
+    function addDetails(html) {
+        section.querySelector('[data-output="details"]').innerHTML += html;
+    }
+
     function setMedia(html) {
         section.querySelector('[data-output="media"]').innerHTML = html;
     }
 
     function clear() {
+        hasError = false;
         section.remove();
     }
 
+    function addError(details) {
+        hasError = true;
+        setTitle('Erreur');
+        addDetails('<p>' + details + '</p>');
+    }
+
+    function getHasError() {
+        return hasError;
+    }
+
     return {
+        addError,
+        getHasError,
         setTitle,
         setDetails,
         setMedia,
