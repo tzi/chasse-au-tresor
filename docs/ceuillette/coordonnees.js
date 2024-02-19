@@ -22,7 +22,7 @@
             singleLine: true,
         });
 
-        const pickedLetters = pick.split(' ').filter(Boolean).map(function(pickItem) {
+        const pickedLetters = pick.split(/\s+/).filter(Boolean).map(function(pickItem) {
             if (!pickItem.match(/[-\.]/)) {
                 output.addError('Mauvais format de coordonnées. Il manque un point dans : "' + pickItem + '"');
                 return false;
@@ -44,8 +44,10 @@
                 output.addError('Mauvaises coordonnées. Lettre invalide dans : "' + pickItem + '"');
                 return false;
             }
-            const letter = referenceLine[coords[1] - 1];
-            if (!letter) {
+            let letter = referenceLine[coords[1] - 1];
+            if (formData.get('isLoop')) {
+                letter = referenceLine[(coords[1] - 1) % referenceLine.length]
+            } else if (!letter) {
                 output.addError('Mauvaises coordonnées. Lettre "' + coords[1] + '" introuvable (maximum ' + referenceLine.length + ') dans : "' + pickItem + '"');
                 return false;
             }
