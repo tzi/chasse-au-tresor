@@ -23,11 +23,11 @@
         });
 
         const pickedLetters = pick.split(' ').filter(Boolean).map(function(pickItem) {
-            if (!pickItem.match(/-./)) {
+            if (!pickItem.match(/[-\.]/)) {
                 output.addError('Mauvais format de coordonnées. Il manque un point dans : "' + pickItem + '"');
                 return false;
             }
-            const coords = pickItem.split(/-./);
+            const coords = pickItem.split(/[-\.]/);
             coords[0] = parseInt(coords[0], 10);
             if (!coords[0]) {
                 output.addError('Mauvaises coordonnées. Ligne invalide dans : "' + pickItem + '"');
