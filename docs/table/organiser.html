@@ -21,13 +21,13 @@
     </div>
     <div class="c-menu">
         <div class="o-container">
-            <h2 class="c-menu__title"><a href="../menu.html">Cueillette par coordonnées</a></h2>
+            <h2 class="c-menu__title"><a href="../menu.html">Organiser une table</a></h2>
         </div>
     </div>
     <div class="o-section">
         <div class="o-section">
             <div class="o-container">
-                <form name="cueilletteCoordonnees">
+                <form name="tableOrganiser">
                     <label class="c-input">
                         <div class="c-input__label">
                             Textes de référence
@@ -36,33 +36,27 @@
                     </label>
                     <label class="c-input">
                         <div class="c-input__label">
-                            Coordonnées à sélectionner
+                            Largeur de la table
                         </div>
-                        <textarea class="c-input__input" name="pick" placeholder="2.1 3.3 5.1 8.3 13.4 21.8" required></textarea>
+                        <input class="c-input__input" name="width" type="number" value="10" required />
+                    </label>
+                    <label class="c-input">
+                        <div class="c-input__label">
+                            Hauteur de la table
+                        </div>
+                        <input class="c-input__input" name="height" type="number" value="10" required />
                     </label>
 
                     <h3>Options</h3>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            <input type="checkbox" name="withSpaces"  />
-                            Inclure les espaces ?
-                        </div>
-                    </label>
                     <label class="c-input">
                         <div class="c-input__label">
                             <input type="checkbox" name="withPunctuation" />
                             Inclure les signes de ponctuation ?
                         </div>
                     </label>
-                    <label class="c-input">
-                        <div class="c-input__label">
-                            <input type="checkbox" name="isLoop" />
-                            Boucler&nbsp;?
-                        </div>
-                    </label>
 
                     <div class="c-action">
-                        <button name="update" class="c-button">Cueillir</button>
+                        <button name="update" class="c-button">Organiser</button>
                     </div>
                 </form>
             </div>
@@ -83,6 +77,6 @@
     <script src="../assets/js/input.js"></script>
     <script src="../assets/js/output.js"></script>
     <script src="../assets/js/form.js"></script>
-    <script src="coordonnees.js"></script>
+    <script src="organiser.js"></script>
 </body>
 </html>

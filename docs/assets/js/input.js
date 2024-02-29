@@ -3,8 +3,12 @@ function cutInWords(string, options = {}) {
 }
 
 function getInput(formData, name, options) {
-    const lineList = formData.get(name)
-        .split("\n")
+    const value = formData.get(name);
+    if (options.isNumber) {
+        return parseInt(value, 10);
+    }
+
+    const lineList = value.split("\n")
         .map(function(line) {
             line = line.trim();
             if (!options.withLetter) {
